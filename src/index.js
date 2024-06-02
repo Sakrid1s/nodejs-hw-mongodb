@@ -1,3 +1,1 @@
-const message = 'Hello World!';
-
-console.log(message);
+import './server.js';
