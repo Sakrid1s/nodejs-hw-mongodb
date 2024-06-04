@@ -4,6 +4,8 @@ import pino from 'pino-http';
 
 import { env } from './utils/env.js';
 import { MONGO_VARS } from './constants/constants.js';
+import { getAllContacts, getContactById } from './services/contacts.js';
+import mongoose from 'mongoose';
 
 const PORT = env(MONGO_VARS.PORT);
 
@@ -20,6 +22,29 @@ export const setupServer = () => {
     }),
   );
 
+  app.get('/contacts', async (req, res) => {
+    const allContacts = await getAllContacts();
+    return res
+      .status(200)
+      .json({ message: 'Successfully found contacts!', data: allContacts });
+  });
+
+  app.get('/contacts/:contactId', async (req, res) => {
+    try {
+      const { contactId } = req.params;
+      if (!mongoose.Types.ObjectId.isValid(contactId)) {
+        throw new Error('contact ID is not valid');
+      }
+      const contact = await getContactById(contactId);
+      return res.status(200).json({
+        message: `Successfully found contact with id ${contactId}!`,
+        data: contact,
+      });
+    } catch (error) {
+      res.status(404).json({ message: 'Not found', error: error.message });
+    }
+  });
+
   app.use('*', (req, res, next) => {
     res.status(404).json({
       message: 'Not found',
@@ -29,6 +54,7 @@ export const setupServer = () => {
   app.use((err, req, res, next) => {
     res.status(500).json({
       message: 'Something went wrong',
+      err: err.message,
     });
   });
 
