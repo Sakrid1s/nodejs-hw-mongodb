@@ -20,25 +20,6 @@ export const setupServer = () => {
     }),
   );
 
-  app.use((req, res, next) => {
-    console.log('firs middleware');
-    next();
-  });
-
-  app.use((req, res, next) => {
-    console.log(`Time: ${new Date().toISOString()}`);
-    next();
-  });
-
-  app.get('/contacts', (req, res, next) => {
-    res.send('<h2>Contacts page</h2>');
-    next(new Error('ALERT'));
-  });
-
-  app.get('/', (req, res) => {
-    res.json({ message: 'Hello' });
-  });
-
   app.use('*', (req, res, next) => {
     res.status(404).json({
       message: 'Not found',
