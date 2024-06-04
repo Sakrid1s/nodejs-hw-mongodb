@@ -3,9 +3,9 @@ import cors from 'cors';
 import pino from 'pino-http';
 
 import { env } from './utils/env.js';
-import { ENV_VARS } from './constants/constants.js';
+import { MONGO_VARS } from './constants/constants.js';
 
-const PORT = env(ENV_VARS.PORT);
+const PORT = env(MONGO_VARS.PORT);
 
 export const setupServer = () => {
   const app = express();
