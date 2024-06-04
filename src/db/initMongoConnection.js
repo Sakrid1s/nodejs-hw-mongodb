@@ -15,7 +15,7 @@ export const initMongoConnection = async () => {
     );
     console.log('Mongo connection successfully established!');
   } catch (error) {
-    console.log('Connection to database error\n', error);
+    console.log('Connected to database with error\n', error);
     process.exit(1);
     throw error;
   }
