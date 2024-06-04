@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 const contactSchema = new Schema(
   {
@@ -15,3 +15,5 @@ const contactSchema = new Schema(
   },
   { timestamps: true, versionKey: false },
 );
+
+export const Contact = model('Contacts', contactSchema);
