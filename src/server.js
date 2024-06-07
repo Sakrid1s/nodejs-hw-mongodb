@@ -42,7 +42,7 @@ export const setupServer = () => {
   app.get('/contacts/:contactId', async (req, res) => {
     try {
       const { contactId } = req.params;
-      if (!mongoose.Types.ObjectId.isValid(contactId)) {
+      if (!mongoose.Types.ObjectId.isValid(contactId) || !contactId) {
         throw new Error('contact ID is not valid');
       }
       const contact = await getContactById(contactId);
