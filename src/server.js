@@ -23,14 +23,20 @@ export const setupServer = () => {
   );
 
   app.get('/contacts', async (req, res) => {
-    const allContacts = await getAllContacts();
-    return res
-      .status(200)
-      .json({
+    try {
+      const allContacts = await getAllContacts();
+      return res.status(200).json({
         status: '200',
         message: 'Successfully found contacts!',
         data: allContacts,
       });
+    } catch (error) {
+      return res.status(500).json({
+        status: '500',
+        message: 'Failed to get contacts',
+        error: error.message,
+      });
+    }
   });
 
   app.get('/contacts/:contactId', async (req, res) => {
@@ -41,11 +47,14 @@ export const setupServer = () => {
       }
       const contact = await getContactById(contactId);
       return res.status(200).json({
+        status: '200',
         message: `Successfully found contact with id ${contactId}!`,
         data: contact,
       });
     } catch (error) {
-      res.status(404).json({ message: 'Not found', error: error.message });
+      return res
+        .status(404)
+        .json({ status: '404', message: 'Not found', error: error.message });
     }
   });
 
