@@ -45,7 +45,7 @@ export const setupServer = () => {
       const isInvalidId = !mongoose.Types.ObjectId.isValid(contactId);
       const contact = isInvalidId ? null : await getContactById(contactId);
       if (isInvalidId || !contact) {
-        throw new Error(`No contact was found with id${contactId}`);
+        throw new Error(`No contact was found with id ${contactId}`);
       }
       return res.status(200).json({
         status: 200,
