@@ -26,13 +26,13 @@ export const setupServer = () => {
     try {
       const allContacts = await getAllContacts();
       return res.status(200).json({
-        status: '200',
+        status: 200,
         message: 'Successfully found contacts!',
         data: allContacts,
       });
     } catch (error) {
       return res.status(500).json({
-        status: '500',
+        status: 500,
         message: 'Failed to get contacts',
         error: error.message,
       });
@@ -45,10 +45,10 @@ export const setupServer = () => {
       const isInvalidId = !mongoose.Types.ObjectId.isValid(contactId);
       const contact = isInvalidId ? null : await getContactById(contactId);
       if (isInvalidId || !contact) {
-        throw new Error('contact ID is not valid');
+        throw new Error(`No contact was found with id${contactId}`);
       }
       return res.status(200).json({
-        status: '200',
+        status: 200,
         message: `Successfully found contact with id ${contactId}!`,
         data: contact,
       });
