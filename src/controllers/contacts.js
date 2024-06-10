@@ -1,5 +1,9 @@
 import mongoose from 'mongoose';
-import { getAllContacts, getContactById } from '../services/contacts.js';
+import {
+  createContact,
+  getAllContacts,
+  getContactById,
+} from '../services/contacts.js';
 import createHttpError from 'http-errors';
 
 export const getAllContactsController = async (req, res) => {
@@ -22,6 +26,16 @@ export const getContactByIdController = async (req, res, next) => {
   return res.status(200).json({
     status: 200,
     message: `Successfully found contact with id ${contactId}`,
+    data: contact,
+  });
+};
+
+export const createContactController = async (req, res, next) => {
+  const contact = await createContact(req.body);
+
+  return res.status(201).json({
+    status: 201,
+    message: 'Successfully created a contact!',
     data: contact,
   });
 };
