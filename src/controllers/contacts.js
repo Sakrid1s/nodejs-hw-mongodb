@@ -44,10 +44,10 @@ export const createContactController = async (req, res, next) => {
 
 export const patchContactController = async (req, res, next) => {
   const { contactId } = req.params;
-  const contact = await patchContact(contactId, req.body);
-
-  if (!contact) {
-    next(createHttpError(404, 'Contact not found'));
+  const isInvalidId = !mongoose.Types.ObjectId.isValid(contactId);
+  const contact = isInvalidId ? null : await patchContact(contactId);
+  if (isInvalidId || !contact) {
+    next(createHttpError(404, `No contact was found with id ${contactId}`));
     return;
   }
   res.status(200).json({
