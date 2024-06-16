@@ -7,9 +7,11 @@ import {
   patchContact,
 } from '../services/contacts.js';
 import createHttpError from 'http-errors';
+import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 
 export const getAllContactsController = async (req, res) => {
-  const allContacts = await getAllContacts();
+  const { page, perPage } = parsePaginationParams(req.query);
+  const allContacts = await getAllContacts({ page, perPage });
   return res.status(200).json({
     status: 200,
     message: 'Successfully found all contacts!',
