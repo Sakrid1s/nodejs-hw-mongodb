@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 import {
   getAllContactsController,
   getContactByIdController,
@@ -6,9 +7,9 @@ import {
   patchContactController,
   deleteContactController,
 } from '../controllers/contacts.js';
-import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateMongoId } from '../middlewares/validateMongoId.js';
 import { validateBody } from '../middlewares/validateBody.js';
+import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { createContactValidationSchema } from '../validations/createContactValidationSchema.js';
 import { updateContactValidationSchema } from '../validations/updateContactValidationSchema.js';
 
