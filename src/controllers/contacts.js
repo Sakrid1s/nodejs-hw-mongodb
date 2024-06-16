@@ -19,15 +19,10 @@ export const getAllContactsController = async (req, res) => {
 
 export const getContactByIdController = async (req, res, next) => {
   const { contactId } = req.params;
-  const isInvalidId = !mongoose.Types.ObjectId.isValid(contactId);
-  const contact = isInvalidId ? null : await getContactById(contactId);
-  if (isInvalidId || !contact) {
-    next(createHttpError(404, `No contact was found with id ${contactId}`));
-    return;
-  }
+  const contact = await getContactById(contactId);
   return res.status(200).json({
     status: 200,
-    message: `Successfully found contact with id ${contactId}`,
+    message: `Successfully found a contact!`,
     data: contact,
   });
 };
@@ -44,13 +39,9 @@ export const createContactController = async (req, res, next) => {
 
 export const patchContactController = async (req, res, next) => {
   const { contactId } = req.params;
-  const isInvalidId = !mongoose.Types.ObjectId.isValid(contactId);
-  const contact = isInvalidId ? null : await patchContact(contactId, req.body);
-  if (isInvalidId || !contact) {
-    next(createHttpError(404, `No contact was found with id ${contactId}`));
-    return;
-  }
-  res.status(200).json({
+  const contact = await patchContact(contactId, req.body);
+
+  return res.status(200).json({
     status: 200,
     message: 'Successfully patched a contact!',
     data: contact,

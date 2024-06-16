@@ -7,8 +7,11 @@ import {
   deleteContactController,
 } from '../controllers/contacts.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
+import { validateMongoId } from '../middlewares/validateMongoId.js';
 
 const router = Router();
+
+router.use('/contacts/:contactId', validateMongoId);
 
 router.get('/contacts', ctrlWrapper(getAllContactsController));
 
