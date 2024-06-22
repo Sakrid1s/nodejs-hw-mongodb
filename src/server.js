@@ -5,7 +5,7 @@ import pino from 'pino-http';
 import { MONGO_VARS } from './constants/constants.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
-import contactsRouter from './routers/contacts.js';
+import rootRouter from './routers/index.js';
 import { env } from './utils/env.js';
 
 const PORT = env(MONGO_VARS.PORT);
@@ -23,7 +23,7 @@ export const setupServer = () => {
     }),
   );
 
-  app.use(contactsRouter);
+  app.use(rootRouter);
 
   app.use('*', notFoundHandler);
 

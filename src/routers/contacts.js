@@ -13,26 +13,26 @@ import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { createContactValidationSchema } from '../validations/createContactValidationSchema.js';
 import { updateContactValidationSchema } from '../validations/updateContactValidationSchema.js';
 
-const router = Router();
+const contactsRouter = Router();
 
-router.use('/contacts/:contactId', validateMongoId('contactId'));
+contactsRouter.use('/:contactId', validateMongoId('contactId'));
 
-router.get('/contacts', ctrlWrapper(getAllContactsController));
+contactsRouter.get('/', ctrlWrapper(getAllContactsController));
 
-router.get('/contacts/:contactId', ctrlWrapper(getContactByIdController));
+contactsRouter.get('/:contactId', ctrlWrapper(getContactByIdController));
 
-router.post(
-  '/contacts',
+contactsRouter.post(
+  '/',
   validateBody(createContactValidationSchema),
   ctrlWrapper(createContactController),
 );
 
-router.patch(
-  '/contacts/:contactId',
+contactsRouter.patch(
+  '/:contactId',
   validateBody(updateContactValidationSchema),
   ctrlWrapper(patchContactController),
 );
 
-router.delete('/contacts/:contactId', ctrlWrapper(deleteContactController));
+contactsRouter.delete('/:contactId', ctrlWrapper(deleteContactController));
 
-export default router;
+export default contactsRouter;
