@@ -29,8 +29,10 @@ export const loginUser = async (userData) => {
   const areEqual = await bcrypt.compare(password, user.password);
 
   if (!areEqual) {
-    throw createHttpError(401, 'Unauthorized');
+    throw createHttpError(401, 'Incorrect email or password');
   }
+
+  return user;
 };
 
 export const logoutUser = async () => {};
