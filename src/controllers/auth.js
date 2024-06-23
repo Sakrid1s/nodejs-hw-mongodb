@@ -1,5 +1,10 @@
 import { TIME_VARS } from '../constants/constants.js';
-import { createUser, loginUser, logoutUser } from '../services/auth.js';
+import {
+  createUser,
+  loginUser,
+  logoutUser,
+  refreshSession,
+} from '../services/auth.js';
 
 const setupSessionCookies = (res, session) => {
   res.cookie('sessionId', session._id, {
@@ -46,4 +51,17 @@ export const logoutUserController = async (req, res, next) => {
   res.status(204).send();
 };
 
-export const refreshTokenUserController = async (req, res, next) => {};
+export const refreshTokenUserController = async (req, res, next) => {
+  const session = await refreshSession({
+    sessionId: req.cookies.sessionId,
+    sessionToken: req.cookies.sessionToken,
+  });
+
+  setupSessionCookies(res, session);
+
+  res.json({
+    status: 200,
+    message: 'Token successfully refreshed',
+    data: { accessToken: session.accessToken },
+  });
+};
