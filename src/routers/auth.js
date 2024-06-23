@@ -5,10 +5,11 @@ import {
   loginUserController,
   logoutUserController,
   refreshTokenUserController,
-} from '../controllers/auth';
-import { validateBody } from '../middlewares/validateBody';
-import { ctrlWrapper } from '../utils/ctrlWrapper';
-import { registerUserValidationSchema } from '../validations/registerUserValidationSchema';
+} from '../controllers/auth.js';
+import { validateBody } from '../middlewares/validateBody.js';
+import { ctrlWrapper } from '../utils/ctrlWrapper.js';
+import { registerUserValidationSchema } from '../validations/registerUserValidationSchema.js';
+import { loginUserValidationSchema } from '../validations/loginUserValidationSchema.js';
 
 const authRouter = Router();
 
@@ -17,7 +18,11 @@ authRouter.post(
   validateBody(registerUserValidationSchema),
   ctrlWrapper(registerUserController),
 );
-authRouter.post('/login', ctrlWrapper(loginUserController));
+authRouter.post(
+  '/login',
+  validateBody(loginUserValidationSchema),
+  ctrlWrapper(loginUserController),
+);
 authRouter.post('/logout', ctrlWrapper(logoutUserController));
 authRouter.post('/refresh-token', ctrlWrapper(refreshTokenUserController));
 

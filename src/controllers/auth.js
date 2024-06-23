@@ -1,7 +1,25 @@
-export const registerUserController = (req, res, next) => {};
+import { createUser, loginUser } from '../services/auth.js';
 
-export const loginUserController = (req, res, next) => {};
+export const registerUserController = async (req, res, next) => {
+  const user = await createUser(req.body);
 
-export const logoutUserController = (req, res, next) => {};
+  res.json({
+    status: 201,
+    message: 'User successfully created',
+    data: { user },
+  });
+};
 
-export const refreshTokenUserController = (req, res, next) => {};
+export const loginUserController = async (req, res, next) => {
+  const user = await loginUser(req.body);
+
+  res.json({
+    status: 200,
+    message: 'User successfully logged in',
+    data: { user },
+  });
+};
+
+export const logoutUserController = async (req, res, next) => {};
+
+export const refreshTokenUserController = async (req, res, next) => {};

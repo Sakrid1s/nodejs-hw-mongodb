@@ -9,4 +9,10 @@ const userSchema = new Schema(
   { timestamps: true, versionKey: false },
 );
 
+userSchema.methods.toJSON = function () {
+  const obj = this.Object();
+  delete obj.password;
+  return obj;
+};
+
 export const User = model('users', userSchema);
