@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import pino from 'pino-http';
 
 import { MONGO_VARS } from './constants/constants.js';
@@ -15,6 +16,7 @@ export const setupServer = () => {
 
   app.use(express.json());
   app.use(cors());
+  app.use(cookieParser());
   app.use(
     pino({
       transport: {
@@ -26,7 +28,6 @@ export const setupServer = () => {
   app.use(rootRouter);
 
   app.use('*', notFoundHandler);
-
   app.use(errorHandler);
 
   app.listen(PORT, () => {
