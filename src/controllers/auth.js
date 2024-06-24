@@ -22,7 +22,7 @@ export const registerUserController = async (req, res, next) => {
 
   res.json({
     status: 201,
-    message: 'User successfully created',
+    message: 'Successfully registered a user!',
     data: { user },
   });
 };
@@ -34,7 +34,7 @@ export const loginUserController = async (req, res, next) => {
 
   res.json({
     status: 200,
-    message: 'Successfully logged in',
+    message: 'Successfully logged in an user!',
     data: { accessToken: session.accessToken },
   });
 };
@@ -61,7 +61,7 @@ export const refreshTokenUserController = async (req, res, next) => {
 
   res.json({
     status: 200,
-    message: 'Token successfully refreshed',
+    message: 'Successfully refreshed a session!',
     data: { accessToken: session.accessToken },
   });
 };
