@@ -13,6 +13,7 @@ import { authenticate } from '../middlewares/authenticate.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { createContactValidationSchema } from '../validations/createContactValidationSchema.js';
 import { updateContactValidationSchema } from '../validations/updateContactValidationSchema.js';
+import { checkRoles } from '../middlewares/checkRoles.js';
 
 const contactsRouter = Router();
 
@@ -32,6 +33,7 @@ contactsRouter.post(
 
 contactsRouter.patch(
   '/:contactId',
+  checkRoles('user', 'admin'),
   validateBody(updateContactValidationSchema),
   ctrlWrapper(patchContactController),
 );
