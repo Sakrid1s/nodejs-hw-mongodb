@@ -23,7 +23,11 @@ contactsRouter.use('/', authenticate);
 
 contactsRouter.get('/', ctrlWrapper(getAllContactsController));
 
-contactsRouter.get('/:contactId', ctrlWrapper(getContactByIdController));
+contactsRouter.get(
+  '/:contactId',
+  checkRoles('user', 'admin'),
+  ctrlWrapper(getContactByIdController),
+);
 
 contactsRouter.post(
   '/',
@@ -38,6 +42,10 @@ contactsRouter.patch(
   ctrlWrapper(patchContactController),
 );
 
-contactsRouter.delete('/:contactId', ctrlWrapper(deleteContactController));
+contactsRouter.delete(
+  '/:contactId',
+  checkRoles('user', 'admin'),
+  ctrlWrapper(deleteContactController),
+);
 
 export default contactsRouter;

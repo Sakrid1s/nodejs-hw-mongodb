@@ -18,7 +18,7 @@ export const checkRoles =
         userId: user._id,
       });
       if (!contact) {
-        next(createHttpError(403, 'This is not your contacts'));
+        next(createHttpError(403, 'This is not your contact'));
         return;
       }
       next();
