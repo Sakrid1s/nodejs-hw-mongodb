@@ -25,7 +25,7 @@ contactsRouter.get('/', ctrlWrapper(getAllContactsController));
 
 contactsRouter.get(
   '/:contactId',
-  checkRoles('user', 'admin'),
+  // checkRoles('user', 'admin'),
   ctrlWrapper(getContactByIdController),
 );
 
@@ -37,14 +37,14 @@ contactsRouter.post(
 
 contactsRouter.patch(
   '/:contactId',
-  checkRoles('user', 'admin'),
+  // checkRoles('user', 'admin'),
   validateBody(updateContactValidationSchema),
   ctrlWrapper(patchContactController),
 );
 
 contactsRouter.delete(
   '/:contactId',
-  checkRoles('user', 'admin'),
+  // checkRoles('user', 'admin'),
   ctrlWrapper(deleteContactController),
 );
 
