@@ -3,7 +3,12 @@ import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 
-import { EMAIL_VARS, JWT_VARS, TIME_VARS } from '../constants/constants.js';
+import {
+  EMAIL_VARS,
+  JWT_VARS,
+  MONGO_VARS,
+  TIME_VARS,
+} from '../constants/constants.js';
 import { User } from '../db/models/user.js';
 import { Session } from '../db/models/session.js';
 import { env } from '../utils/env.js';
@@ -116,7 +121,9 @@ export const requestResetToken = async (email) => {
       from: env(EMAIL_VARS.SMTP_FROM),
       to: email,
       subject: 'Reset your password',
-      html: `<p>Click <a href="${resetToken}">here</a> to reset your password</p>`,
+      html: `<p>Click <a href="${env(
+        MONGO_VARS.APP_DOMAIN,
+      )}/reset-pwd?token=${resetToken}">here</a> to reset your password</p>`,
     });
   } catch (error) {
     console.log(error);
@@ -126,4 +133,28 @@ export const requestResetToken = async (email) => {
       'Failed to send the email, please try again later.',
     );
   }
+};
+
+export const resetPassword = async (userData) => {
+  let entries;
+  try {
+    entries = jwt.verify(userData.token, env(JWT_VARS.JWT_SECRET));
+  } catch (error) {
+    if (error instanceof Error)
+      throw createHttpError(401, 'Token is expired or invalid.');
+    throw error;
+  }
+
+  const user = await User.findOne({
+    email: entries.email,
+    _id: entries.sub,
+  });
+
+  if (!user) {
+    throw createHttpError(404, 'User not found');
+  }
+
+  const encryptedPassword = bcrypt.hash(userData.password, 10);
+
+  await User.updateOne({ _id: user._id }, { password: encryptedPassword });
 };
