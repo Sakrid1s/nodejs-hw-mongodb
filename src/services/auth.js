@@ -89,3 +89,11 @@ export const refreshSession = async (sessionData) => {
     ...createSessionToken(),
   });
 };
+
+export const requestResetToken = async (email) => {
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw createHttpError(404, 'User not found');
+  }
+};

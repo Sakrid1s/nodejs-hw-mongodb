@@ -15,3 +15,10 @@ export const TIME_VARS = {
   FIFTEEN_MINUTES: 1000 * 60 * 15,
   ONE_WEEK: 1000 * 60 * 60 * 24 * 7,
 };
+
+export const EMAIL_VARS = {
+  SMTP_HOST: 'SMTP_HOST',
+  SMTP_PORT: 'SMTP_PORT',
+  SMTP_USER: 'SMTP_USER',
+  SMTP_PASSWORD: 'SMTP_PASSWORD',
+};
