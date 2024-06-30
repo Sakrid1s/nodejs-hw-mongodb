@@ -76,10 +76,11 @@ export const createContact = async ({ photo, ...payload }, userId) => {
   return contact;
 };
 
-export const patchContact = async (contactId, payload, userId) => {
+export const patchContact = async (contactId, payload, photo, userId) => {
+  const url = await saveFileToCloudinary(photo);
   const contact = await ContactsCollection.findOneAndUpdate(
     { _id: contactId, userId },
-    payload,
+    { ...payload, photoUrl: url },
     { new: true },
   );
   return contact;

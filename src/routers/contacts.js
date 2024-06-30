@@ -40,7 +40,8 @@ contactsRouter.post(
 contactsRouter.patch(
   '/:contactId',
   // checkRoles('user', 'admin'),
-  validateBody(updateContactValidationSchema),
+  upload.single('photo'),
+  // validateBody(updateContactValidationSchema),
   ctrlWrapper(patchContactController),
 );
 

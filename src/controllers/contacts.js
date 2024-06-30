@@ -67,7 +67,16 @@ export const createContactController = async (req, res, next) => {
 
 export const patchContactController = async (req, res, next) => {
   const { contactId } = req.params;
-  const contact = await patchContact(contactId, req.body, req.user._id);
+  const { body, file } = req;
+
+  if (!file || !file.path) {
+    return res.status(400).json({
+      status: 400,
+      message: 'File is missing or invalid',
+    });
+  }
+
+  const contact = await patchContact(contactId, body, file, req.user._id);
   if (!contact) {
     next(createHttpError(404, `No contact was found with id ${contactId}`));
     return;
