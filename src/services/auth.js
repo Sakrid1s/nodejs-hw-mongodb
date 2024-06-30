@@ -7,10 +7,10 @@ import fs from 'fs/promises';
 import handlebars from 'handlebars';
 
 import {
+  DIR_VARS,
   EMAIL_VARS,
   JWT_VARS,
   MONGO_VARS,
-  TEMPLATES_DIR,
   TIME_VARS,
 } from '../constants/constants.js';
 import { User } from '../db/models/user.js';
@@ -121,7 +121,7 @@ export const requestResetToken = async (email) => {
   );
 
   const resetPasswordTemplatePath = path.join(
-    TEMPLATES_DIR,
+    DIR_VARS.TEMPLATES_DIR,
     'send-reset-password.html',
   );
 

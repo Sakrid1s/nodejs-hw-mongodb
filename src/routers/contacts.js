@@ -14,6 +14,7 @@ import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { createContactValidationSchema } from '../validations/createContactValidationSchema.js';
 import { updateContactValidationSchema } from '../validations/updateContactValidationSchema.js';
 import { checkRoles } from '../middlewares/checkRoles.js';
+import { upload } from '../middlewares/uploadImage.js';
 
 const contactsRouter = Router();
 
@@ -31,7 +32,8 @@ contactsRouter.get(
 
 contactsRouter.post(
   '/',
-  validateBody(createContactValidationSchema),
+  // validateBody(createContactValidationSchema),
+  upload.single('photo'),
   ctrlWrapper(createContactController),
 );
 

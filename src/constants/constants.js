@@ -31,4 +31,7 @@ export const JWT_VARS = {
   JWT_SECRET: 'JWT_SECRET',
 };
 
-export const TEMPLATES_DIR = path.join(process.cwd(), 'src', 'templates');
+export const DIR_VARS = {
+  TEMPLATES_DIR: path.join(process.cwd(), 'src', 'templates'),
+  TEMP_UPLOAD_DIR: path.join(process.cwd(), 'temp'),
+};
