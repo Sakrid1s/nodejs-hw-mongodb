@@ -175,4 +175,5 @@ export const resetPassword = async (userData) => {
   const encryptedPassword = await bcrypt.hash(userData.password, 10);
 
   await User.updateOne({ _id: user._id }, { password: encryptedPassword });
+  await Session.deleteMany({ userId: user._id });
 };
