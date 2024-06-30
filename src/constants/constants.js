@@ -40,3 +40,9 @@ export const DIR_VARS = {
   TEMP_UPLOAD_DIR: path.join(process.cwd(), 'temp'),
   UPLOAD_DIR: path.join(process.cwd(), 'upload'),
 };
+
+export const CLOUDINARY_VARS = {
+  CLOUD_NAME: 'CLOUDINARY_CLOUD_NAME',
+  API_KEY: 'CLOUDINARY_API_KEY',
+  API_SECRET: 'CLOUDINARY_API_SECRET',
+};
