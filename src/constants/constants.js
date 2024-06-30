@@ -1,8 +1,12 @@
 import path from 'path';
 
-export const MONGO_VARS = {
+export const ENV_VARS = {
   PORT: 'PORT',
   APP_DOMAIN: 'APP_DOMAIN',
+  BACKEND_DOMAIN: 'BACKEND_DOMAIN',
+};
+
+export const MONGO_VARS = {
   MONGODB_USER: 'MONGODB_USER',
   MONGODB_PASSWORD: 'MONGODB_PASSWORD',
   MONGODB_URL: 'MONGODB_URL',
@@ -34,4 +38,5 @@ export const JWT_VARS = {
 export const DIR_VARS = {
   TEMPLATES_DIR: path.join(process.cwd(), 'src', 'templates'),
   TEMP_UPLOAD_DIR: path.join(process.cwd(), 'temp'),
+  UPLOAD_DIR: path.join(process.cwd(), 'upload'),
 };

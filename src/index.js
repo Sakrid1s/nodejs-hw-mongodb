@@ -6,6 +6,7 @@ import { createFolderIfNotExist } from './utils/createFolderIfNotExist.js';
 const bootstrap = async () => {
   await initMongoConnection();
   await createFolderIfNotExist(DIR_VARS.TEMP_UPLOAD_DIR);
+  await createFolderIfNotExist(DIR_VARS.UPLOAD_DIR);
   setupServer();
 };
 

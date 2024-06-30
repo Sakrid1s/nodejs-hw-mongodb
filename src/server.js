@@ -3,13 +3,13 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import pino from 'pino-http';
 
-import { MONGO_VARS } from './constants/constants.js';
+import { DIR_VARS, ENV_VARS } from './constants/constants.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import rootRouter from './routers/index.js';
 import { env } from './utils/env.js';
 
-const PORT = env(MONGO_VARS.PORT);
+const PORT = env(ENV_VARS.PORT);
 
 export const setupServer = () => {
   const app = express();
@@ -26,6 +26,8 @@ export const setupServer = () => {
   );
 
   app.use(rootRouter);
+
+  app.use('/uploads', express.static(DIR_VARS.UPLOAD_DIR));
 
   app.use('*', notFoundHandler);
   app.use(errorHandler);

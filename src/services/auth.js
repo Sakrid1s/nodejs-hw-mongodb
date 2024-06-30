@@ -9,8 +9,8 @@ import handlebars from 'handlebars';
 import {
   DIR_VARS,
   EMAIL_VARS,
+  ENV_VARS,
   JWT_VARS,
-  MONGO_VARS,
   TIME_VARS,
 } from '../constants/constants.js';
 import { User } from '../db/models/user.js';
@@ -133,7 +133,7 @@ export const requestResetToken = async (email) => {
 
   const html = template({
     name: user.name,
-    link: `${env(MONGO_VARS.APP_DOMAIN)}/reset-pass?token=${resetToken}`,
+    link: `${env(ENV_VARS.APP_DOMAIN)}/reset-pass?token=${resetToken}`,
   });
 
   try {
