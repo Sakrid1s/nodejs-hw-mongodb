@@ -48,6 +48,14 @@ export const getContactByIdController = async (req, res, next) => {
 
 export const createContactController = async (req, res, next) => {
   const { body, file } = req;
+
+  if (!file || !file.path) {
+    return res.status(400).json({
+      status: 400,
+      message: 'File is missing or invalid',
+    });
+  }
+
   const contact = await createContact({ ...body, photo: file }, req.user._id);
 
   return res.status(201).json({

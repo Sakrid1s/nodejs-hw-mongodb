@@ -3,6 +3,7 @@ import { ContactsCollection } from '../db/models/contact.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 import { saveFileLocally } from '../utils/saveFileLocally.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+import { saveFileOptions } from '../utils/saveFilesOptions.js';
 
 export const getAllContacts = async ({
   page = 1,
@@ -65,6 +66,7 @@ export const getContactById = async (contactId, userId) => {
 export const createContact = async ({ photo, ...payload }, userId) => {
   // const url = await saveFileLocally(photo);
   const url = await saveFileToCloudinary(photo);
+  // const url = await saveFileOptions(photo);
 
   const contact = await ContactsCollection.create({
     ...payload,
