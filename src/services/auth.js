@@ -2,11 +2,15 @@ import createHttpError from 'http-errors';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
+import path from 'path';
+import fs from 'fs/promises';
+import handlebars from 'handlebars';
 
 import {
   EMAIL_VARS,
   JWT_VARS,
   MONGO_VARS,
+  TEMPLATES_DIR,
   TIME_VARS,
 } from '../constants/constants.js';
 import { User } from '../db/models/user.js';
@@ -116,14 +120,28 @@ export const requestResetToken = async (email) => {
     },
   );
 
+  const resetPasswordTemplatePath = path.join(
+    TEMPLATES_DIR,
+    'send-reset-password.html',
+  );
+
+  const templateSource = (
+    await fs.readFile(resetPasswordTemplatePath)
+  ).toString();
+
+  const template = handlebars.compile(templateSource);
+
+  const html = template({
+    name: user.name,
+    link: `${env(MONGO_VARS.APP_DOMAIN)}/reset-pass?token=${resetToken}`,
+  });
+
   try {
     await sendEmail({
       from: env(EMAIL_VARS.SMTP_FROM),
       to: email,
       subject: 'Reset your password',
-      html: `<p>Click <a href="${env(
-        MONGO_VARS.APP_DOMAIN,
-      )}/reset-pwd?token=${resetToken}">here</a> to reset your password</p>`,
+      html,
     });
   } catch (error) {
     console.log(error);
@@ -154,7 +172,7 @@ export const resetPassword = async (userData) => {
     throw createHttpError(404, 'User not found');
   }
 
-  const encryptedPassword = bcrypt.hash(userData.password, 10);
+  const encryptedPassword = await bcrypt.hash(userData.password, 10);
 
   await User.updateOne({ _id: user._id }, { password: encryptedPassword });
 };

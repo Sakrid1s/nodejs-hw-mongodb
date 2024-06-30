@@ -1,3 +1,5 @@
+import path from 'path';
+
 export const MONGO_VARS = {
   PORT: 'PORT',
   APP_DOMAIN: 'APP_DOMAIN',
@@ -28,3 +30,5 @@ export const EMAIL_VARS = {
 export const JWT_VARS = {
   JWT_SECRET: 'JWT_SECRET',
 };
+
+export const TEMPLATES_DIR = path.join(process.cwd(), 'src', 'templates');
