@@ -1,4 +1,5 @@
 import { setupServer } from './server.js';
+
 import { DIR_VARS } from './constants/constants.js';
 import { initMongoConnection } from './db/initMongoConnection.js';
 import { createFolderIfNotExist } from './utils/createFolderIfNotExist.js';

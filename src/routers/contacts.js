@@ -10,11 +10,11 @@ import {
 import { validateMongoId } from '../middlewares/validateMongoId.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { authenticate } from '../middlewares/authenticate.js';
+import { checkRoles } from '../middlewares/checkRoles.js';
+import { upload } from '../middlewares/uploadImage.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { createContactValidationSchema } from '../validations/createContactValidationSchema.js';
 import { updateContactValidationSchema } from '../validations/updateContactValidationSchema.js';
-import { checkRoles } from '../middlewares/checkRoles.js';
-import { upload } from '../middlewares/uploadImage.js';
 
 const contactsRouter = Router();
 

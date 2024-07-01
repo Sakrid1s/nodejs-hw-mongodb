@@ -50,10 +50,8 @@ export const createContactController = async (req, res, next) => {
   const { body, file } = req;
 
   if (!file || !file.path) {
-    return res.status(400).json({
-      status: 400,
-      message: 'File is missing or invalid',
-    });
+    next(createHttpError(400, 'File is missing or invalid'));
+    return;
   }
 
   const contact = await createContact({ ...body, photo: file }, req.user._id);
@@ -70,10 +68,8 @@ export const patchContactController = async (req, res, next) => {
   const { body, file } = req;
 
   if (!file || !file.path) {
-    return res.status(400).json({
-      status: 400,
-      message: 'File is missing or invalid',
-    });
+    next(createHttpError(400, 'File is missing or invalid'));
+    return;
   }
 
   const contact = await patchContact(contactId, body, file, req.user._id);
