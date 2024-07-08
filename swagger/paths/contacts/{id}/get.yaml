@@ -1,17 +1,18 @@
 tags:
   - Contacts
 summary: Get contacts by ID
-operations: getContacts
+operationId: getContacts
 description: 'Get contact by ID'
 security:
   - bearerAuth: []
 parameters:
-  - in: path
-  name: id
-  required: true
-  scheme:
-    type: string
-    example: '665f5b9b26f55579f03a428b'
+  - name: id
+    in: path
+    required: true
+    schema:
+      type: string
+      example: '665f5b9b26f55579f03a428b'
+    description: 'ID of contact'
 responses:
   '200':
     description: 'get contacts by ID'
@@ -32,6 +33,6 @@ responses:
               example: 'Successfully found a contact with id 665f5b9b26f55579f03a428b'
             data:
               type: object
-              $$ref: ../../../contacts/schemas/contacts.yaml
+              $ref: ..\..\..\components\schemas\contacts.yaml
   '401':
     $ref: ../../../components/responses/401.yaml
