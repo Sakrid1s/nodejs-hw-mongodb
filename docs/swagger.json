@@ -1,0 +1,190 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "<Contacts App>",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "<http://www.apache.org/licenses/LICENSE-2.0.html>"
+    },
+    "description": "<Contacts App with auth>\n"
+  },
+  "servers": [
+    {
+      "url": "<http://localhost:3000>"
+    },
+    {
+      "url": "<https://contacts-app-tvyi.onrender.com>"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Contacts App",
+      "description": "Operations with contacts."
+    },
+    {
+      "name": "Auth",
+      "description": "Operations with auth."
+    }
+  ],
+  "paths": {
+    "/contacts/{id}": {
+      "get": {
+        "tags": [
+          "Contacts"
+        ],
+        "summary": "Get contacts by ID",
+        "operationId": "getContacts",
+        "description": "Get contact by ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "665f5b9b26f55579f03a428b"
+            },
+            "description": "ID of contact"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "get contacts by ID",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found a contact with id 665f5b9b26f55579f03a428b"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/contacts"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "contacts": {
+        "type": "object",
+        "required": [
+          "name",
+          "phoneNumber",
+          "isFavourite",
+          "contactType",
+          "userId",
+          "photoUrl"
+        ],
+        "properties": {
+          "name": {
+            "description": "Contact name",
+            "type": "string",
+            "example": "Yulia Shevchenko"
+          },
+          "phoneNumber": {
+            "description": "Contact phone number",
+            "type": "string",
+            "example": "+380000000001"
+          },
+          "isFavourite": {
+            "description": "Is favorite contact",
+            "type": "boolean",
+            "example": false
+          },
+          "contactType": {
+            "description": "Contact type",
+            "type": "string",
+            "enum": [
+              "work",
+              "home",
+              "personal"
+            ],
+            "default": "personal"
+          },
+          "userId": {
+            "description": "Contact ID",
+            "type": "string",
+            "example": "665f5b9b26f55579f03a428b"
+          },
+          "photoUrl": {
+            "description": "Link to photo",
+            "type": "string",
+            "example": "<https://res.cloudinary.com/dvtj3guij/image/upload/v1719916458/vvtekzbo7my5ib0cf80j.jpg>"
+          }
+        }
+      }
+    },
+    "responses": {
+      "401": {
+        "description": "Unauthorized error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "UnauthorizedError"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Access token expired"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
