@@ -1,8 +1,8 @@
 tags:
   - Contacts
-summary: Get contacts by id
-operationId: getContact
-description: 'Get contact by id'
+summary: Patch contact by ID
+operationId: patchContacts
+description: 'Patch contact by ID'
 security:
   - bearerAuth: []
 parameters:
@@ -12,9 +12,10 @@ parameters:
     schema:
       type: string
       example: '665f5b9b26f55579f03a428b'
+    description: 'ID of contact'
 responses:
   '200':
-    description: 'Get contacts by ID'
+    description: 'patch contacts by ID'
     content:
       aplication/json:
         schema:
@@ -29,7 +30,7 @@ responses:
               example: 200
             message:
               type: string
-              example: 'Successfully found a contact with id 665f5b9b26f55579f03a428b!'
+              example: 'Successfully patch a contact with id 665f5b9b26f55579f03a428b'
             data:
               type: object
               $ref: ../../../components/schemas/contacts.yaml
