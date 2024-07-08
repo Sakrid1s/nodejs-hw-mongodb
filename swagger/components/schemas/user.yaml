@@ -1,0 +1,18 @@
+type: object
+required:
+  - name
+  - email
+  - password
+properties:
+  name:
+    description: 'User name'
+    type: string
+    example: 'Yulia Shevchenko'
+  email:
+    description: 'User email'
+    type: string
+    example: 'Yulia Shevchenko@gmail.com'
+  password:
+    description: 'User password'
+    type: string
+    example: '123456789'
