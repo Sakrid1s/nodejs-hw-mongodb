@@ -15,7 +15,7 @@ parameters:
     description: 'ID of contact'
 responses:
   '200':
-    description: 'patch contacts by ID'
+    description: 'Successfully patch contact by ID'
     content:
       aplication/json:
         schema:
@@ -36,3 +36,5 @@ responses:
               $ref: ../../../components/schemas/contacts.yaml
   '401':
     $ref: ../../../components/responses/401.yaml
+  '404':
+    $ref: '../../../components/responses/404.yaml'

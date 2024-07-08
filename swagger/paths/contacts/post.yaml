@@ -45,7 +45,7 @@ requestBody:
             format: binary
 responses:
   '201':
-    description: Create a contact
+    description: 'Successfully create a contact'
     content:
       application/json:
         schema:

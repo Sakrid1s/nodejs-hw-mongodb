@@ -13,8 +13,8 @@ parameters:
       type: string
       example: '665f5b9b26f55579f03a428b'
 responses:
-  '200':
-    description: 'Delete contacts by ID'
+  '204':
+    description: 'Successfully delete contact by ID'
     content:
       aplication/json:
         schema:
@@ -29,3 +29,5 @@ responses:
               example: 204
   '401':
     $ref: ../../../components/responses/401.yaml
+  '404':
+    $ref: '../../../components/responses/404.yaml'
