@@ -33,6 +33,6 @@ responses:
               example: 'Successfully found a contact with id 665f5b9b26f55579f03a428b'
             data:
               type: object
-              $ref: ..\..\..\components\schemas\contacts.yaml
+              $ref: ../../../components/schemas/contacts.yaml
   '401':
     $ref: ../../../components/responses/401.yaml
