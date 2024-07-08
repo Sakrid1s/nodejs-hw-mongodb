@@ -1,6 +1,6 @@
 tags:
   - Contacts
-summary: Delete contacts by id
+summary: Delete contact by id
 operationId: deleteContact
 description: 'Delete contact by id'
 security:
