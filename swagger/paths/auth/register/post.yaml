@@ -3,8 +3,7 @@ tags:
 summary: Register user
 operationId: registerUser
 description: 'Register a new user with the provided data'
-security:
-  - bearerAuth: []
+security: []
 requestBody:
   content:
     application/json:
