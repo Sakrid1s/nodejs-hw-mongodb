@@ -1,0 +1,52 @@
+tags:
+  - Auth
+summary: Refresh user session
+operationId: refreshUser
+description: 'Refresh the user session with the provided session data'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            description: 'Email of the user'
+            type: string
+            example: 'john.doe@example.com'
+          password:
+            description: 'Password for the user account'
+            type: string
+            example: '1234567890'
+responses:
+  '200':
+    description: 'Successfully refreshed the session'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Successfully refreshed the session'
+            data:
+              type: object
+              properties:
+                accessToken:
+                  type: string
+                  example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+  '401':
+    $ref: '../../../components/responses/401.yaml'
+  '404':
+    $ref: '../../../components/responses/404.yaml'

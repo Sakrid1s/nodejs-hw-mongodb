@@ -50,6 +50,6 @@ responses:
               properties:
                 user:
                   type: object
-                  $ref: '../../components/schemas/user.yaml'
+                  $ref: '../../../components/schemas/user.yaml'
   '409':
-    $ref: ..\..\components\responses\409.yaml
+    $ref: '../../../components/responses/409.yaml'

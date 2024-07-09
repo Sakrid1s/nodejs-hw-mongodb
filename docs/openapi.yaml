@@ -30,22 +30,22 @@ paths:
       $ref: ../swagger/paths/contacts/{id}/delete.yaml
   /auth/register:
     post:
-      $ref: ../swagger/paths/auth/postRegister.yaml
+      $ref: ../swagger/paths/auth/register/post.yaml
   /auth/login:
     post:
-      $ref:
+      $ref: ../swagger/paths/auth/login/post.yaml
   /auth/logout:
     post:
-      $ref:
+      $ref: ../swagger/paths/auth/logout/post.yaml
   /auth/refresh:
     post:
-      $ref:
+      $ref: ../swagger/paths/auth/refresh/post.yaml
   /auth/send-reset-email:
     post:
-      $ref:
+      $ref: ../swagger/paths/auth/resetEmail/post.yaml
   /auth/reset-pwd:
     post:
-      $ref:
+      $ref: ../swagger/paths/auth/resetPassword/post.yaml
 components:
   securitySchemes:
     bearerAuth:
