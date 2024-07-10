@@ -978,7 +978,7 @@
           "photoUrl": {
             "description": "Link to photo",
             "type": "string",
-            "example": "<https://res.cloudinary.com/dvtj3guij/image/upload/v1719916458/vvtekzbo7my5ib0cf80j.jpg>"
+            "example": "https://res.cloudinary.com/dvtj3guij/image/upload/v1719916458/vvtekzbo7my5ib0cf80j.jpg"
           }
         }
       },
