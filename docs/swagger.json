@@ -234,7 +234,7 @@
                     "default": "personal",
                     "example": "personal"
                   },
-                  "photoUrl": {
+                  "photo": {
                     "description": "Link to photo",
                     "type": "string",
                     "format": "binary"
@@ -408,7 +408,7 @@
                     "default": "personal",
                     "example": "personal"
                   },
-                  "photoUrl": {
+                  "photo": {
                     "description": "Link to photo",
                     "type": "string",
                     "format": "binary"
@@ -975,7 +975,7 @@
             "default": "personal",
             "example": "personal"
           },
-          "photoUrl": {
+          "photo": {
             "description": "Link to photo",
             "type": "string",
             "example": "https://res.cloudinary.com/dvtj3guij/image/upload/v1719916458/vvtekzbo7my5ib0cf80j.jpg"

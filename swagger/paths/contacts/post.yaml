@@ -37,7 +37,7 @@ requestBody:
             enum: ['work', 'home', 'personal']
             default: 'personal'
             example: 'personal'
-          photoUrl:
+          photo:
             description: 'Link to photo'
             type: string
             format: binary
