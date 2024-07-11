@@ -84,11 +84,9 @@ export const createContact = async ({ photo, ...payload }, userId) => {
 export const patchContact = async (contactId, payload, photo, userId) => {
   let updateFields = { ...payload };
 
-  if (photo !== null) {
+  if (photo) {
     const url = await saveFileToCloudinary(photo);
     updateFields.photoUrl = url;
-  } else {
-    updateFields.photoUrl = null;
   }
 
   const contact = await ContactsCollection.findOneAndUpdate(
