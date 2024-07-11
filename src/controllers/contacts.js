@@ -49,40 +49,51 @@ export const getContactByIdController = async (req, res, next) => {
 export const createContactController = async (req, res, next) => {
   const { body, file } = req;
 
-  if (!file || !file.path) {
-    next(createHttpError(400, 'File is missing or invalid'));
-    return;
+  try {
+    let contact;
+    if (file && file.path) {
+      contact = await createContact({ ...body, photo: file }, req.user._id);
+    } else {
+      contact = await createContact({ ...body }, req.user._id);
+    }
+
+    return res.status(201).json({
+      status: 201,
+      message: 'Successfully created a contact!',
+      data: contact,
+    });
+  } catch (error) {
+    next(error);
   }
-
-  const contact = await createContact({ ...body, photo: file }, req.user._id);
-
-  return res.status(201).json({
-    status: 201,
-    message: 'Successfully created a contact!',
-    data: contact,
-  });
 };
 
 export const patchContactController = async (req, res, next) => {
   const { contactId } = req.params;
   const { body, file } = req;
 
-  if (!file || !file.path) {
-    next(createHttpError(400, 'File is missing or invalid'));
-    return;
-  }
+  try {
+    let contact;
 
-  const contact = await patchContact(contactId, body, file, req.user._id);
-  if (!contact) {
-    next(createHttpError(404, `No contact was found with id ${contactId}`));
-    return;
-  }
+    if (file && file.path) {
+      contact = await patchContact(contactId, body, file, req.user._id);
+    } else {
+      contact = await patchContact(contactId, body, null, req.user._id);
+    }
 
-  return res.status(200).json({
-    status: 200,
-    message: 'Successfully patched a contact!',
-    data: contact,
-  });
+    if (!contact) {
+      return next(
+        createHttpError(404, `No contact was found with id ${contactId}`),
+      );
+    }
+
+    return res.status(200).json({
+      status: 200,
+      message: 'Successfully patched a contact!',
+      data: contact,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const deleteContactController = async (req, res, next) => {

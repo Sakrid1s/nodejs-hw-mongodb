@@ -64,9 +64,14 @@ export const getContactById = async (contactId, userId) => {
 };
 
 export const createContact = async ({ photo, ...payload }, userId) => {
-  // const url = await saveFileLocally(photo);
-  const url = await saveFileToCloudinary(photo);
-  // const url = await saveFileOptions(photo);
+  let url = null;
+  if (photo) {
+    url = await saveFileToCloudinary(photo);
+    // If saving locally:
+    // url = await saveFileLocally(photo);
+    // If using other options:
+    // url = await saveFileOptions(photo);
+  }
 
   const contact = await ContactsCollection.create({
     ...payload,
@@ -77,12 +82,21 @@ export const createContact = async ({ photo, ...payload }, userId) => {
 };
 
 export const patchContact = async (contactId, payload, photo, userId) => {
-  const url = await saveFileToCloudinary(photo);
+  let updateFields = { ...payload };
+
+  if (photo !== null) {
+    const url = await saveFileToCloudinary(photo);
+    updateFields.photoUrl = url;
+  } else {
+    updateFields.photoUrl = null;
+  }
+
   const contact = await ContactsCollection.findOneAndUpdate(
     { _id: contactId, userId },
-    { ...payload, photoUrl: url },
+    updateFields,
     { new: true },
   );
+
   return contact;
 };
 
